@@ -137,12 +137,13 @@ shared.examplesFor('supporting Promise interface', function(opts) {
         sandbox.stub(opts.internalObject, opts.internalMethodName).yields(new Error('problem'));
       });
 
-      it('returns rejected Promise unless callback is specified', function () {
-        return opts.run()
+      it('returns rejected Promise unless callback is specified', function (done) {
+        opts.run()
           .catch(function (err) {
             err.should.be.instanceOf(Error);
             err.message.should.equal('problem');
-          });
+            done();
+          })
       });
     });
   });
